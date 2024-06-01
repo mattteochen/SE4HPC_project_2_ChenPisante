@@ -18,6 +18,15 @@ From: pcafrica/mk #Scientific computing image
     # Change to the test-matrix directory
     cd /SE4HPC_project
 
+    pwd
+
+    mkdir build
+
+%files
+    build/ /root/SE4HPC_project/build
+    cd /root/SE4HPC_project/build
+    ls -la
+
 %runscript
     # This script will be executed when the container runs
     cd build && mpirun -n 2 main
