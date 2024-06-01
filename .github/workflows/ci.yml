@@ -51,7 +51,7 @@ jobs:
         run: cmake --build build
 
       - name: Test
-        run: cd build && ./test_multiplication
+        run: cd build && mpirun -n 1 test_multiplication
 
       - name: Build Singularity image
         run: singularity build --fakeroot TestMultiplication.sif Singularity.def
