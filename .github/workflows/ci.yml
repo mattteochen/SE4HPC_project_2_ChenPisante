@@ -42,7 +42,7 @@ jobs:
         run: sudo apt-get update && sudo apt-get install -y build-essential cmake libopenmpi-dev openmpi-bin libssl-dev uuid-dev libgpgme11-dev squashfs-tools libseccomp-dev pkg-config
 
       - name: Install singularity dependencies
-        run: go get -u github.com/golang/dep/cmd/dep
+        run: go install github.com/golang/dep/cmd/dep@latest
 
       - name: Create build directory
         run: mkdir -p build
