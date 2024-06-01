@@ -10,6 +10,7 @@ From: ubuntu:18.04
     build-essential \
     openmpi-bin \
     openmpi-common \
+    openssh-client \
     libopenmpi-dev
 
     # Create a directory for the test-matrix
