@@ -20,7 +20,7 @@ jobs:
         uses: jwlawson/actions-setup-cmake@v1
 
       - name: Set up Singularity
-        uses: darrenmp/singularity-action@v2.0.0
+        uses: eWaterCycle/setup-singularity@v7
 
       - name: Verify Singularity Installation
         run: singularity --version
