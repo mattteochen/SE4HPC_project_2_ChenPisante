@@ -1,5 +1,5 @@
 Bootstrap: docker
-From: ubuntu:20.04
+From: orwel84/ubuntu-16-mpi
 
 %labels
     Maintainer mattteochen
@@ -7,8 +7,8 @@ From: ubuntu:20.04
 
 %post
     # Install dependencies
-    apt update
-    apt install -y libopenmpi-dev openmpi-bin
+    #apt update
+    #apt install -y libopenmpi-dev openmpi-bin
 
     # Clean up to reduce image size
     apt-get clean
@@ -22,4 +22,4 @@ From: ubuntu:20.04
 
 %runscript
     # This script will be executed when the container runs
-    cd build && mpirun -n 1 test_multiplication
+    cd build && mpirun -n 2 main
