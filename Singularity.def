@@ -20,9 +20,9 @@ From: pcafrica/mk #Scientific computing image
     # Change to the test-matrix directory
     cd /root/SE4HPC_project/build
     
-    # Visual debug files during build
+    # Visual debug copied files during building
     ls -la
 
 %runscript
     # This script will be executed when the container runs
-    mpirun -n 2 main
+    cd /root/SE4HPC_project/build && mpirun -n 2 main
