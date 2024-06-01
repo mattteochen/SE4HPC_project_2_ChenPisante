@@ -7,6 +7,8 @@ From: pcafrica/mk #Scientific computing image
 
 %files
     build/ /root/SE4HPC_project/build
+    matrixA.txt /root/SE4HPC_project
+    matrixB.txt /root/SE4HPC_project
 
 %post
     apt-get update && apt-get install -y \
@@ -17,9 +19,10 @@ From: pcafrica/mk #Scientific computing image
 
     # Change to the test-matrix directory
     cd /root/SE4HPC_project/build
-
+    
+    # Visual debug files during build
     ls -la
 
 %runscript
     # This script will be executed when the container runs
-    cd /root/SE4HPC_project/build && ls -la && pwd && mpirun -n 2 main
+    mpirun -n 2 main
