@@ -16,9 +16,13 @@ From: ubuntu:20.04
     # Change to the project directory
     cd /project
 
-%files
+    mkdir build
+
+    ls -la
+
+%runscript
     # Copy build directory
-    build/* /project
+    cp -r build /project/build
 
 %environment
     # Set environment variables
@@ -28,4 +32,4 @@ From: ubuntu:20.04
     # Debug availble files
     ls -la
     # This script will be executed when the container runs
-    ./test_multiplication
+    cd build && ./test_multiplication
