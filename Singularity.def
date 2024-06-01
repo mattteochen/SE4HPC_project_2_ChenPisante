@@ -6,9 +6,6 @@ From: pcafrica/mk
     Version 1.0
 
 %post
-    # Load modules
-    module load gcc-glibc
-
     # Create a directory for the test-matrix
     mkdir -p /SE4HPC_project
 
