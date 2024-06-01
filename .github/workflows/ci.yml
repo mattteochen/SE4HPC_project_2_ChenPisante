@@ -19,6 +19,12 @@ jobs:
       - name: Set up CMake
         uses: jwlawson/actions-setup-cmake@v1
 
+      - name: Set up Singularity
+        uses: darrenmp/singularity-action@v2.0.0
+
+      - name: Verify Singularity Installation
+        run: singularity --version
+
       - name: Set up Cache
         uses: actions/cache@v4
         with:
@@ -29,23 +35,23 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-cmake-
 
-      - name: Download go
-        run: export VERSION=1.11 OS=linux ARCH=amd64 && wget https://dl.google.com/go/go$VERSION.$OS-$ARCH.tar.gz && sudo tar -C /usr/local -xzvf go$VERSION.$OS-$ARCH.tar.gz && rm go$VERSION.$OS-$ARCH.tar.gz
+      # - name: Download go
+      #   run: export VERSION=1.11 OS=linux ARCH=amd64 && wget https://dl.google.com/go/go$VERSION.$OS-$ARCH.tar.gz && sudo tar -C /usr/local -xzvf go$VERSION.$OS-$ARCH.tar.gz && rm go$VERSION.$OS-$ARCH.tar.gz
 
-      - name: Set up go
-        run: echo 'export GOPATH=${HOME}/go' >> ~/.bashrc && echo 'export PATH=/usr/local/go/bin:${PATH}:${GOPATH}/bin' >> ~/.bashrc && source ~/.bashrc
+      # - name: Set up go
+      #   run: echo 'export GOPATH=${HOME}/go' >> ~/.bashrc && echo 'export PATH=/usr/local/go/bin:${PATH}:${GOPATH}/bin' >> ~/.bashrc && source ~/.bashrc
 
-      - name: Install Go dep
-        run: cd /home/runner/go/ mkdir bin && curl https://raw.githubusercontent.com/golang/dep/master/install.sh | sh
+      # - name: Install Go dep
+      #   run: cd /home/runner/go/ mkdir bin && curl https://raw.githubusercontent.com/golang/dep/master/install.sh | sh
 
       - name: Initialize submodule
         run: git submodule update --init --recursive
 
       - name: Install dependencies
-        run: sudo apt-get update && sudo apt-get install -y build-essential cmake libopenmpi-dev openmpi-bin libssl-dev uuid-dev libgpgme11-dev squashfs-tools libseccomp-dev pkg-config
+        run: sudo apt-get update && sudo apt-get install -y build-essential cmake libopenmpi-dev openmpi-bin #libssl-dev uuid-dev libgpgme11-dev squashfs-tools libseccomp-dev pkg-config
 
-      - name: Install singularity
-        run: go get -d github.com/sylabs/singularity
+      # - name: Install singularity
+      #   run: go get -d github.com/sylabs/singularity
 
       - name: Create build directory
         run: mkdir -p build
