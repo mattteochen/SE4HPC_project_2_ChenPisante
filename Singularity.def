@@ -1,18 +1,13 @@
 Bootstrap: docker
-From: orwel84/ubuntu-16-mpi
+From: pcafrica/mk
 
 %labels
     Maintainer mattteochen
     Version 1.0
 
 %post
-    # Install dependencies
-    #apt update
-    #apt install -y libopenmpi-dev openmpi-bin
-
-    # Clean up to reduce image size
-    apt-get clean
-    rm -rf /var/lib/apt/lists/*
+    # Load modules
+    module load gcc-glibc
 
     # Create a directory for the test-matrix
     mkdir -p /SE4HPC_project
