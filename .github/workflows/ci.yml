@@ -55,3 +55,12 @@ jobs:
 
       - name: Build Singularity image
         run: singularity build --fakeroot TestMultiplication.sif Singularity.def
+
+      - name: Test Singularity image
+        run: singularity run my_project.sif
+
+      - name: Upload Singularity image as artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: testmultiplication-image
+          path: TestMultiplication.sif
