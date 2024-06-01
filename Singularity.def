@@ -22,4 +22,4 @@ From: pcafrica/mk #Scientific computing image
 
 %runscript
     # This script will be executed when the container runs
-    cd build && mpirun -n 2 main
+    cd /root/SE4HPC_project/build && ls -la && pwd && mpirun -n 2 main
