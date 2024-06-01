@@ -35,14 +35,14 @@ jobs:
       - name: Set up go
         run: echo 'export GOPATH=${HOME}/go' >> ~/.bashrc && echo 'export PATH=/usr/local/go/bin:${PATH}:${GOPATH}/bin' >> ~/.bashrc && source ~/.bashrc
 
+      - name: Install Go dep
+        run: cd /home/runner/go/ mkdir bin && curl https://raw.githubusercontent.com/golang/dep/master/install.sh | sh
+
       - name: Initialize submodule
         run: git submodule update --init --recursive
 
       - name: Install dependencies
         run: sudo apt-get update && sudo apt-get install -y build-essential cmake libopenmpi-dev openmpi-bin libssl-dev uuid-dev libgpgme11-dev squashfs-tools libseccomp-dev pkg-config
-
-      - name: Install Go dep
-        run: curl https://raw.githubusercontent.com/golang/dep/master/install.sh | sh
 
       - name: Install singularity
         run: go get -d github.com/sylabs/singularity
