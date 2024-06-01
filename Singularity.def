@@ -5,6 +5,9 @@ From: pcafrica/mk #Scientific computing image
     Maintainer mattteochen
     Version 1.0
 
+%files
+    build/ /root/SE4HPC_project/build
+
 %post
     apt-get update && apt-get install -y \
     build-essential \
@@ -12,19 +15,9 @@ From: pcafrica/mk #Scientific computing image
     openmpi-common \
     libopenmpi-dev
 
-    # Create a directory for the test-matrix
-    mkdir -p /SE4HPC_project
-
     # Change to the test-matrix directory
-    cd /SE4HPC_project
-
-    pwd
-
-    mkdir build
-
-%files
-    build/ /root/SE4HPC_project/build
     cd /root/SE4HPC_project/build
+
     ls -la
 
 %runscript
