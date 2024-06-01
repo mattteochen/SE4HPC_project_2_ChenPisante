@@ -54,4 +54,4 @@ jobs:
         run: cd build && ./test_multiplication
 
       - name: Build Singularity image
-        run: singularity --fakeroot build TestMultiplication.sif Singularity.def
+        run: singularity build --fakeroot TestMultiplication.sif Singularity.def
