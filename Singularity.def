@@ -10,23 +10,19 @@ From: ubuntu:20.04
     apt-get clean
     rm -rf /var/lib/apt/lists/*
 
-    # Create a directory for the project
-    mkdir -p /project
+    # Create a directory for the test-matrix
+    mkdir -p /test-matrix
 
-    # Change to the project directory
-    cd /project
-
-    mkdir build
-
-    ls -la
+    # Change to the test-matrix directory
+    cd /test-matrix
 
 %runscript
     # Copy build directory
-    cp -r build /project/build
+    cp -r build /test-matrix/build
 
 %environment
     # Set environment variables
-    export PROJECT_DIR=/project
+    export test-matrix_DIR=/test-matrix
 
 %runscript
     # Debug availble files
