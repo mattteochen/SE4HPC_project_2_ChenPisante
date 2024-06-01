@@ -1,0 +1,31 @@
+Bootstrap: docker
+From: ubuntu:20.04
+
+%labels
+    Maintainer mattteochen
+    Version 1.0
+
+%post
+    # Clean up to reduce image size
+    apt-get clean
+    rm -rf /var/lib/apt/lists/*
+
+    # Create a directory for the project
+    mkdir -p /project
+
+    # Change to the project directory
+    cd /project
+
+%files
+    # Copy build directory
+    build/* /project
+
+%environment
+    # Set environment variables
+    export PROJECT_DIR=/project
+
+%runscript
+    # Debug availble files
+    ls -la
+    # This script will be executed when the container runs
+    ./test_multiplication
