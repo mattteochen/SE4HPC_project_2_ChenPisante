@@ -14,13 +14,18 @@ jobs:
 
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: Set up CMake
         uses: jwlawson/actions-setup-cmake@v1
 
+      - name: Set up Go
+        uses: actions/setup-go@v4
+        with:
+          go-version: '1.22'
+
       - name: Set up Cache
-        uses: actions/cache@v3
+        uses: actions/cache@v4
         with:
           path: |
             build
@@ -33,7 +38,10 @@ jobs:
         run: git submodule update --init --recursive
 
       - name: Install dependencies
-        run: sudo apt-get update && sudo apt-get install -y build-essential cmake libopenmpi-dev openmpi-bin
+        run: sudo apt-get update && sudo apt-get install -y build-essential cmake libopenmpi-dev openmpi-bin libssl-dev uuid-dev libgpgme11-dev squashfs-tools libseccomp-dev pkg-config
+
+      - name: Install singularity dependencies
+        run: go get -u github.com/golang/dep/cmd/dep
 
       - name: Create build directory
         run: mkdir -p build
