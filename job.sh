@@ -1,13 +1,12 @@
 #!/bin/bash
 
 # Define variables
-IMAGE_NAME="testmultiplication-image.sif"
-ARTIFACT_URL="https://github.com/mattteochen/SE4HPC_project_2_ChenPisante/actions/runs/9331929835/artifacts/1559061128"
 OUTPUT_FILE="stdout.txt"
 ERROR_FILE="stderr.txt"
 
 # Download Singularity image from GitHub Actions artifact
-wget -O "$IMAGE_NAME" "$ARTIFACT_URL"
+wget https://github.com/mattteochen/SE4HPC_project_2_ChenPisante/actions/runs/9331929835/artifacts/1559061128
+unzip testmultiplication-image.zip
 
 # Check if the download was successful
 if [ $? -ne 0 ]; then
@@ -16,7 +15,7 @@ if [ $? -ne 0 ]; then
 fi
 
 # Run Singularity container and map stdout and stderr to files
-singularity exec "$IMAGE_NAME" \
+singularity exec testmultiplication-image.sif \
     your_command_or_script \
     > "$OUTPUT_FILE" 2> "$ERROR_FILE"
 
