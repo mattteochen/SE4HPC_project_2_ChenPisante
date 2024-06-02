@@ -1,0 +1,7 @@
+Latest artifact download URL: https://api.github.com/repos/mattteochen/SE4HPC_project_2_ChenPisante/actions/artifacts/1559964872/zip
+Downloaded latest artifact to image.zip
+Archive:  image.zip
+  inflating: TestMultiplication.sif
+Congratulations, bro. Here is your resultant matrix C:
+58 64
+139 154
