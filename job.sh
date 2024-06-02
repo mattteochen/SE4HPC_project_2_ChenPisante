@@ -28,7 +28,7 @@ capture_output curl -L \
   -o artifacts.json
 
 # Extract the download URL of the latest artifact
-LATEST_URL=$(jq -r '.artifacts | sort_by(.created_at) | last | .archive_download_url' artifacts.json)
+LATEST_URL=$(python3 artifacts_link.py)
 
 echo_stdout "Latest artifact download URL: $LATEST_URL"
 
@@ -42,7 +42,7 @@ if [ -n "$LATEST_URL" ]; then
   "$LATEST_URL"
   echo_stdout "Downloaded latest artifact to $OUT_ZIP_FILE"
   # Unzip artifact
-  capture_output unzip "$OUT_ZIP_FILE"
+  capture_output unzip -o "$OUT_ZIP_FILE"
   # Run image
   capture_output singularity run TestMultiplication.sif
 else
