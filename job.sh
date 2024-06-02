@@ -15,6 +15,10 @@ echo_stdout() {
     echo "$@" >> "$OUTPUT_FILE"
 }
 
+# Clear stdout and stderr files
+: > "$OUTPUT_FILE"
+: > "$ERROR_FILE"
+
 # Fetch the latest artifacts JSON
 capture_output curl -L \
   -H "Accept: application/vnd.github+json" \
