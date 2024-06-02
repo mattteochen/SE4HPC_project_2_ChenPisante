@@ -2,7 +2,7 @@ Bootstrap: docker
 From: pcafrica/mk #Scientific computing image
 
 %labels
-    Maintainer mattteochen
+    Maintainer kaiximatteo.chen@mail.polimi.it, giuseppe.pisante@mail.polimi.it
     Version 1.0
 
 %files
