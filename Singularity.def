@@ -6,7 +6,7 @@ From: pcafrica/mk #Scientific computing image
     Version 1.0
 
 %files
-    . /tmp
+    . /opt/build_files
 
 %post
     apt-get update && apt-get install -y \
@@ -16,11 +16,11 @@ From: pcafrica/mk #Scientific computing image
     cmake \
     libopenmpi-dev
 
-    cd /tmp
+    cd /opt/build_files
     ls -la
     rm -rf build
     chmod +x build.sh
     ./build.sh
 
 %runscript
-    cd /tmp/build && mpirun -n 2 main
+    cd /opt/build_files/build && mpirun -n 2 main
