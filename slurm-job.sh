@@ -3,9 +3,7 @@
 #SBATCH --job-name=SE4HPC-project ## Name of the job
 #SBATCH --output=slurmout.txt     ## Stdout
 #SBATCH --error=slurmerr.txt      ## Stderr
-##SBATCH --ntasks=2               ## Number of MPI processes
-#SBATCH --cpus-per-task=1         ## Number of CPU cores per MPI process
-#SBATCH --time=01:00              ## Job Duration
+#SBATCH --time=01:00:00              ## Job Duration
 
 OUT_ZIP_FILE="image.zip"
 
