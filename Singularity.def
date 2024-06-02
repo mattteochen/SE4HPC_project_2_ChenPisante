@@ -6,9 +6,7 @@ From: pcafrica/mk #Scientific computing image
     Version 1.0
 
 %files
-    build/ /tmp
-    matrixA.txt /tmp
-    matrixB.txt /tmp
+    . /tmp
 
 %post
     apt-get update && apt-get install -y \
@@ -18,3 +16,11 @@ From: pcafrica/mk #Scientific computing image
     cmake \
     libopenmpi-dev
 
+    cd /tmp
+    ls -la
+    rm -rf build
+    chmod +x build.sh
+    ./build.sh
+
+%runscript
+    cd /tmp/build && mpirun -n 2 main
