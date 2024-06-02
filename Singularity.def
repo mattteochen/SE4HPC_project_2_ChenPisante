@@ -6,23 +6,15 @@ From: pcafrica/mk #Scientific computing image
     Version 1.0
 
 %files
-    build/ /root/SE4HPC_project/build
-    matrixA.txt /root/SE4HPC_project
-    matrixB.txt /root/SE4HPC_project
+    build/ /tmp
+    matrixA.txt /tmp
+    matrixB.txt /tmp
 
 %post
     apt-get update && apt-get install -y \
     build-essential \
     openmpi-bin \
     openmpi-common \
+    cmake \
     libopenmpi-dev
 
-    # Change to the test-matrix directory
-    cd /root/SE4HPC_project/build
-    
-    # Visual debug copied files during building
-    ls -la
-
-%runscript
-    # This script will be executed when the container runs
-    cd /root/SE4HPC_project/build && mpirun -n 2 main
