@@ -3,25 +3,44 @@
 # Define variables
 OUTPUT_FILE="stdout.txt"
 ERROR_FILE="stderr.txt"
+OUT_ZIP_FILE="image.zip"
 
-# Download Singularity image from GitHub Actions artifact
-wget https://github.com/mattteochen/SE4HPC_project_2_ChenPisante/actions/runs/9331929835/artifacts/1559061128
-unzip testmultiplication-image.zip
+# Function to run a command and capture stdout and stderr
+capture_output() {
+    "$@" > >(tee -a "$OUTPUT_FILE") 2> >(tee -a "$ERROR_FILE" >&2)
+}
 
-# Check if the download was successful
-if [ $? -ne 0 ]; then
-    echo "Failed to download Singularity image."
-    exit 1
+# Function to echo to stdout
+echo_stdout() {
+    echo "$@" >> "$OUTPUT_FILE"
+}
+
+# Fetch the latest artifacts JSON
+capture_output curl -L \
+  -H "Accept: application/vnd.github+json" \
+  -H "Authorization: Bearer $GITHUB_ACCESS_TOKEN" \
+  -H "X-GitHub-Api-Version: 2022-11-28" \
+  https://api.github.com/repos/mattteochen/SE4HPC_project_2_ChenPisante/actions/artifacts \
+  -o artifacts.json
+
+# Extract the download URL of the latest artifact
+LATEST_URL=$(jq -r '.artifacts | sort_by(.created_at) | last | .archive_download_url' artifacts.json)
+
+echo_stdout "Latest artifact download URL: $LATEST_URL"
+
+# Download the latest artifact
+if [ -n "$LATEST_URL" ]; then
+  capture_output curl -L \
+  -H "Accept: application/vnd.github+json" \
+  -H "Authorization: Bearer $GITHUB_ACCESS_TOKEN" \
+  -H "X-GitHub-Api-Version: 2022-11-28" \
+  -o "$OUT_ZIP_FILE" \
+  "$LATEST_URL"
+  echo_stdout "Downloaded latest artifact to $OUT_ZIP_FILE"
+  # Unzip artifact
+  capture_output unzip "$OUT_ZIP_FILE"
+  # Run image
+  capture_output singularity run TestMultiplication.sif
+else
+  echo_stdout "No artifact found."
 fi
-
-# Run Singularity container and map stdout and stderr to files
-singularity exec testmultiplication-image.sif \
-    your_command_or_script \
-    > "$OUTPUT_FILE" 2> "$ERROR_FILE"
-
-if [ $? -ne 0 ]; then
-    echo "Error occurred while running Singularity container."
-    exit 1
-fi
-
-echo "Singularity container executed successfully."
