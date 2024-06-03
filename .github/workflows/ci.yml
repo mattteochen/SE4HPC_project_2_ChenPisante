@@ -65,9 +65,9 @@ jobs:
           name: testmultiplication-image
           path: TestMultiplication.sif
 
-      - name: Execute remote job batch command
-        env:
-          SSH_PASSWORD: ${{ secrets.CINECA_LOGIN_PASSWORD }}
-        run: |
-          sshpass -p "$SSH_PASSWORD" ssh  a08trb54@login.g100.cineca.it 'sbatch slurm-job.sh'
+      # - name: Execute remote job batch command
+      #   env:
+      #     SSH_PASSWORD: ${{ secrets.CINECA_LOGIN_PASSWORD }}
+      #   run: |
+      #     sshpass -p "$SSH_PASSWORD" ssh  a08trb54@login.g100.cineca.it 'sbatch slurm-job.sh'
 
