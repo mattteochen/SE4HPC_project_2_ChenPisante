@@ -35,7 +35,7 @@ if [ -n "$LATEST_URL" ]; then
   # Unzip artifact
   unzip -o "$OUT_ZIP_FILE"
   # Run image
-  srun singularity exec --bind $TMPDIR:$TMPDIR TestMultiplication.sif bash -c "export OMPI_MCA_tmpdir_base=$TMPDIR && mpirun -n 2 /opt/build_files/build/main"
+  srun singularity exec --bind $TMPDIR:/scratch_local TestMultiplication.sif bash -c "export OMPI_MCA_tmpdir_base=$TMPDIR && mpirun -n 2 /opt/build_files/build/main"
 else
   echo "No artifact found."
 fi
