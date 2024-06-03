@@ -22,8 +22,8 @@ From: pcafrica/mk #Scientific computing image
     chmod +x build.sh
     ./build.sh
 
-    cp matrixA build
-    cp matrixB build
+    cp matrixA.txt build
+    cp matrixB.txt build
 
     ls -la /build
 
