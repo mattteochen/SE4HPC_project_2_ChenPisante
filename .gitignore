@@ -1,5 +1,5 @@
 build/
-slum*.txt
+slurm*.txt
 std*.txt
 *.zip
 artifacts.json
