@@ -20,9 +20,13 @@ From: pcafrica/mk #Scientific computing image
 
     cd /opt/build_files
     ls -la
-    cd build
-    cmake ..
-    make
+    chmod +x build.sh
+    ./build.sh
+
+    cp matrixA build
+    cp matrixB build
+
+    ls -la /build
 
 %runscript
     cd /opt/build_files/build && mpirun -np 2 main
