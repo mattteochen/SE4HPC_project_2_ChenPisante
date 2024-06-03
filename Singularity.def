@@ -7,8 +7,6 @@ From: pcafrica/mk #Scientific computing image
 
 %files
     . /opt/build_files
-    matrixA.txt /opt/build_files/build
-    matrixB.txt /opt/build_files/build
 
 %post
     apt-get update && apt-get install -y \
@@ -20,6 +18,7 @@ From: pcafrica/mk #Scientific computing image
 
     cd /opt/build_files
     ls -la
+    rm -rf build
     chmod +x build.sh
     ./build.sh
 
