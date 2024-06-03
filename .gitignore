@@ -1,1 +1,6 @@
 build/
+slum*.txt
+std*.txt
+*.zip
+artifacts.json
+*.sif
