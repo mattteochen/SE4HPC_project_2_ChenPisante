@@ -23,5 +23,6 @@ From: pcafrica/mk #Scientific computing image
     ./build.sh
 
 %runscript
-    unset TMPDIR
-    cd /opt/build_files/build && mpirun -np 2 main
+    export TMPDIR=/opt/build_files/tmp
+    echo $TMPDIR
+    export OMPI_MCA_tmpdir_base=$TMPDIR && cd /opt/build_files/build &&  mpirun -np 2 main
