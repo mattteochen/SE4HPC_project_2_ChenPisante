@@ -24,4 +24,4 @@ From: pcafrica/mk #Scientific computing image
 
 %runscript
     unset TMPDIR
-    cd /opt/build_files && mpirun -n 2 main
+    cd /opt/build_files/build && mpirun -np 2 main
