@@ -25,7 +25,7 @@ From: pcafrica/mk #Scientific computing image
     cp matrixA.txt build
     cp matrixB.txt build
 
-    ls -la /build
+    ls -la /opt/build_files/build
 
 %runscript
     cd /opt/build_files/build && mpirun -np 2 main
