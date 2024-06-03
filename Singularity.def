@@ -6,9 +6,11 @@ From: pcafrica/mk #Scientific computing image
     Version 1.0
 
 %files
+    # Copy project files
     . /opt/build_files
 
 %post
+    # Install packages
     apt-get update && apt-get install -y \
     build-essential \
     openmpi-bin \
@@ -16,16 +18,13 @@ From: pcafrica/mk #Scientific computing image
     cmake \
     libopenmpi-dev
 
+    # Build
     cd /opt/build_files
-    ls -la
     rm -rf build
     chmod +x build.sh
     ./build.sh
-
     cp matrixA.txt build
     cp matrixB.txt build
-
-    ls -la /opt/build_files/build
 
 %runscript
     cd /opt/build_files/build && mpirun -np 2 main

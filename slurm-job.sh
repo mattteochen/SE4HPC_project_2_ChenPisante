@@ -3,6 +3,8 @@
 #SBATCH --job-name=SE4HPC-project ## Name of the job
 #SBATCH --output=slurmout.txt     ## Stdout
 #SBATCH --error=slurmerr.txt      ## Stderr
+#SBATCH --ntasks=2
+#SBATCH --cpus-per-task=1
 #SBATCH --time=01:00:00              ## Job Duration
 
 export TMPDIR=$HOME/tmp
@@ -35,7 +37,7 @@ if [ -n "$LATEST_URL" ]; then
   # Unzip artifact
   unzip -o "$OUT_ZIP_FILE"
   # Run image
-  srun singularity exec --bind $TMPDIR:/scratch_local TestMultiplication.sif bash -c "export OMPI_MCA_tmpdir_base=$TMPDIR && mpirun -n 2 /opt/build_files/build/main"
+  srun singularity exec --bind $TMPDIR:/scratch_local TestMultiplication.sif bash -c "mpirun -np 2 /opt/build_files/build/main"
 else
   echo "No artifact found."
 fi
