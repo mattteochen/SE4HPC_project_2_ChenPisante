@@ -5,9 +5,12 @@ OUTPUT_FILE="stdout.txt"
 ERROR_FILE="stderr.txt"
 OUT_ZIP_FILE="image.zip"
 
+export TMPDIR=$HOME/tmp
+mkdir -p $TMPDIR
+
 # Function to run a command and capture stdout and stderr
 capture_output() {
-    "$@" > >(tee -a "$OUTPUT_FILE") 2> >(tee -a "$ERROR_FILE" >&2)
+    "$@" > >(tee -a "$OUTPUT_FILE") 2> >(tee -a "$ERROR_FILE" >&2) 
 }
 
 # Function to echo to stdout
@@ -45,6 +48,7 @@ if [ -n "$LATEST_URL" ]; then
   capture_output unzip -o "$OUT_ZIP_FILE"
   # Run image
   capture_output singularity run TestMultiplication.sif
+  capture_output singularity exec --bind $TMPDIR:$TMPDIR TestMultiplication.sif bash -c "export OMPI_MCA_tmpdir_base=$TMPDIR && mpirun -n 2 /opt/build_files/build/main"
 else
   echo_stdout "No artifact found."
 fi

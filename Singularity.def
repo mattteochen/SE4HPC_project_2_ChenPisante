@@ -7,6 +7,8 @@ From: pcafrica/mk #Scientific computing image
 
 %files
     . /opt/build_files
+    matrixA.txt /opt/build_files/build
+    matrixB.txt /opt/build_files/build
 
 %post
     apt-get update && apt-get install -y \
@@ -18,11 +20,9 @@ From: pcafrica/mk #Scientific computing image
 
     cd /opt/build_files
     ls -la
-    rm -rf build
-    chmod +x build.sh
-    ./build.sh
+    cd build
+    cmake ..
+    make
 
 %runscript
-    export TMPDIR=/home
-    echo $TMPDIR
-    export OMPI_MCA_tmpdir_base=$TMPDIR && cd /opt/build_files/build &&  mpirun -np 2 main
+    cd /opt/build_files/build && mpirun -np 2 main

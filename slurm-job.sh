@@ -5,6 +5,9 @@
 #SBATCH --error=slurmerr.txt      ## Stderr
 #SBATCH --time=01:00:00              ## Job Duration
 
+export TMPDIR=$HOME/tmp
+mkdir -p $TMPDIR
+
 OUT_ZIP_FILE="image.zip"
 
 # Fetch the latest artifacts JSON
@@ -32,7 +35,7 @@ if [ -n "$LATEST_URL" ]; then
   # Unzip artifact
   unzip -o "$OUT_ZIP_FILE"
   # Run image
-  srun singularity run TestMultiplication.sif
+  srun singularity exec --bind $TMPDIR:$TMPDIR TestMultiplication.sif bash -c "export OMPI_MCA_tmpdir_base=$TMPDIR && mpirun -n 2 /opt/build_files/build/main"
 else
   echo "No artifact found."
 fi
