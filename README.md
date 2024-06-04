@@ -1,54 +1,96 @@
 # SE4HPCproject
 
-## Step 2 -- From build to release and manual job execution 
+## Overview
 
-Focus now on the correct implementation of the matrix multiplication you
-find in <https://github.com/SimoneReale/SE4HPC_project_part2>. This is a
-parallel implementation that uses MPI and reads the matrices to be
-multiplied from two files, matrixA.txt and matrixB.txt. In these files
-the first row contains the matrix dimensions (number of rows and
-columns), while the other rows contain the matrix itself.
+This project implements a parallel matrix multiplication application using MPI. The application reads matrices from two files, `matrixA.txt` and `matrixB.txt`, where the first row contains the matrix dimensions and the subsequent rows contain the matrix data.
 
-Your task is to perform the following steps:
+## Features
 
-**Preparation**: Use the template available here
-<https://github.com/SimoneReale/SE4HPC_project_part2> to create your own
-github repository. Add to this repository the tests you have created in
-Step1.
+- Parallel matrix multiplication using MPI
+- Automated build and test processes
+- Containerization with Singularity
+- Automated job submission to the Galileo100 cluster using SLURM
 
-**Automating the build, test and release processes**: Create a CI/CD
-pipeline that, when someone pushes files in the repo, executes the
-building and testing process.
+## Repository Structure
 
-**Containerizing the application**: Go through the following steps:
+SE4HPCproject/
+├── .github/
+│ └── workflows/
+│ └── ci.yml
+├── src/
+│ └── matrix_multiplication.c
+├── tests/
+│ └── test_matrix_multiplication.c
+├── singularity.def
+├── job.sh
+├── matrixA.txt
+├── matrixB.txt
+└── README.md
 
--   Define a Singularity container descriptor for the matrix
-    multiplication program and push it in your repo.
 
--   Extend the created action to create a container image from your
-    description.
 
-**Executing on the cluster**: Go through the following steps:
+## Setup and Usage
 
--   Create a job.sh file to run your containerized application. Make
-    sure that the standard output and error are mapped to txt files.
+### Building and Testing
 
--   Transfer on Galileo100 your job script and the container.
+1. **Clone the Repository**
+    ```sh
+    git clone https://github.com/yourusername/SE4HPCproject.git
+    cd SE4HPCproject
+    ```
 
--   Submit your job to the cluster and check whether it works correctly.
+2. **Build the Application**
+    ```sh
+    mpicc -o matrix_multiplication src/matrix_multiplication.c
+    ```
 
--   Push on your github repository your job.sh file and the files
-    obtained from the execution of the matrix multiplication.
+3. **Run Unit Tests**
+    ```sh
+    gcc -o test_matrix_multiplication tests/test_matrix_multiplication.c -lmpi
+    ./test_matrix_multiplication
+    ```
 
-## Step 3 -- Automating a job submission with containerization 
+### Containerization
 
-Extend the action you have created at step 3 to automate completely the
-process from a push on the repository to the execution of the
-containerized software on SLURM. To do so, you will have to move your
-container from the runner to the cluster. You can either use the scp
-command or you can publish your image on the Singularity registry and
-then pull it from the cluster. Don't forget to handle your secrets
-properly! You do not want to leave passwords and authentication tokens
-visible to everybody, so you will use the [secrets
-mechanism](https://docs.github.com/en/actions/security-guides/using-secrets-in-github-actions?tool=cli).
+1. **Build the Singularity Image**
+    ```sh
+    singularity build matrix_multiplication.sif singularity.def
+    ```
 
+2. **Test the Singularity Image**
+    ```sh
+    singularity exec matrix_multiplication.sif ./matrix_multiplication
+    ```
+
+### Continuous Integration
+
+- The CI/CD pipeline is configured using GitHub Actions. It automates the build, test, and containerization processes. The workflow is defined in `.github/workflows/ci.yml`.
+- On every push, the pipeline will:
+    - Build the application
+    - Run unit tests
+    - Build and test the Singularity image
+    - Upload the Singularity image as a GitHub artifact
+
+### Cluster Execution
+
+1. **Transfer to Galileo100**
+    ```sh
+    scp job.sh matrix_multiplication.sif user@galileo100:/path/to/your/directory
+    ```
+
+2. **Submit the Job**
+    ```sh
+    sbatch job.sh
+    ```
+
+3. **Check Output**
+    - The standard output and error are redirected to text files as specified in `job.sh`.
+
+### Automating Job Submission
+
+- The CI/CD pipeline can be extended to automate the transfer and submission of jobs to the cluster. This involves securely handling secrets such as passwords and tokens using the [GitHub Secrets mechanism](https://docs.github.com/en/actions/security-guides/using-secrets-in-github-actions?tool=cli).
+
+## Contributions
+
+Matteo Kaixi Chen
+Giuseppe Pisante
