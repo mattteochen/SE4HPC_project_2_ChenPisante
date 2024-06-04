@@ -13,6 +13,7 @@ This project implements a parallel matrix multiplication application using MPI. 
 
 ## Repository Structure
 
+```
 SE4HPCproject/
 ├── .github/
 │ └── workflows/
@@ -26,7 +27,7 @@ SE4HPCproject/
 ├── matrixA.txt
 ├── matrixB.txt
 └── README.md
-
+```
 
 
 ## Setup and Usage
@@ -92,5 +93,5 @@ SE4HPCproject/
 
 ## Contributions
 
-Matteo Kaixi Chen
-Giuseppe Pisante
+- Matteo Kaixi Chen
+- Giuseppe Pisante 
