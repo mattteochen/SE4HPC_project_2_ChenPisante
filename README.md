@@ -99,7 +99,6 @@ Copia codice
 - The CI/CD pipeline can be extended to automate the transfer and submission of jobs to the cluster. This involves securely handling secrets such as passwords and tokens using the [GitHub Secrets mechanism](https://docs.github.com/en/actions/security-guides/using-secrets-in-github-actions?tool=cli).
 
 ## Contributions
-## Contributions
 
 - Matteo Kaixi Chen
 - Giuseppe Pisante 
