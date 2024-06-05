@@ -34,8 +34,6 @@ SE4HPCproject/
 ├── slurm-job.sh
 └── README.md
 ```
-markdown
-Copia codice
 
 ## Setup and Usage
 
@@ -49,13 +47,12 @@ Copia codice
 
 2. **Build the Application**
     ```bash
-    mpicc -o matrix_multiplication src/matrix_multiplication.c
+    chmod +x build.sh && ./build.sh
     ```
 
 3. **Run Unit Tests**
     ```bash
-    gcc -o test_matrix_multiplication test/test_matrix_multiplication.c -lmpi
-    ./test_matrix_multiplication
+    cd build && ./test_multilication
     ```
 
 ### Containerization
@@ -67,36 +64,28 @@ Copia codice
 
 2. **Test the Singularity Image**
     ```bash
-    singularity exec matrix_multiplication.sif ./matrix_multiplication
+    singularuty run YOUR_IMAGE_NAME.sif
     ```
 
 ### Continuous Integration
 
 - The CI/CD pipeline is configured using GitHub Actions. It automates the build, test, and containerization processes. The workflow is defined in `.github/workflows/ci.yml`.
 - On every push, the pipeline will:
+  - automatically submit SLURM job to Galileo100
   - Build the application
   - Run unit tests
   - Build and test the Singularity image
   - Upload the Singularity image as a GitHub artifact
 
-### Cluster Execution
+## Cluster Execution
 
-1. **Transfer to Galileo100**
-    ```bash
-    scp job.sh matrix_multiplication.sif user@galileo100:/path/to/your/directory
-    ```
+To run the job on a cluster with SLURM, simply execute the following commands:
 
-2. **Submit the Job**
-    ```bash
-    sbatch job.sh
-    ```
+```bash
+chmod +x slurm-job.sh && sbatch slurm-job.sh
+```
 
-3. **Check Output**
-    - The standard output and error are redirected to text files as specified in `job.sh`.
-
-### Automating Job Submission
-
-- The CI/CD pipeline can be extended to automate the transfer and submission of jobs to the cluster. This involves securely handling secrets such as passwords and tokens using the [GitHub Secrets mechanism](https://docs.github.com/en/actions/security-guides/using-secrets-in-github-actions?tool=cli).
+These commands fully automate the process. The ```slurm-job.sh``` file automatically downloads the image from GitHub Artifacts, avoiding to avoiding to copy it manually.
 
 ## Contributions
 
