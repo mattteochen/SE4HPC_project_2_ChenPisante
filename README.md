@@ -76,6 +76,7 @@ SE4HPCproject/
   - Run unit tests
   - Build and test the Singularity image
   - Upload the Singularity image as a GitHub artifact
+  - Execute the container remotely on the cluster using a remote call to SLURM 
 
 ## Cluster Execution
 
